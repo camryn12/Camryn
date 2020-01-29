@@ -1,0 +1,75 @@
+using System;
+using static System.Console;
+using System.Drawing;
+
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+
+namespace C__Tests
+{
+	
+	class Retina
+	{
+		class Tile
+		{
+			public const int Len=8;
+			
+			Color[ , ] Pixels{get;set;}
+			
+			public Tile(Color[ , ] pixels)
+			{
+				Pixels=new Color[Len,Len];
+		    }
+		}
+		
+		Tile[ , ] Tiles{get;set;}
+		
+		public Retina(string path)
+		{
+			Image<Rgba32>img6L=Image.Load<Rgba32>(path);
+			
+			int tileRows=(int) Math.Ceiling((double)img6L.Height/Tile.Len);
+			int tileCols=(int) Math.Ceiling((double)img6L.Width/Tile.Len);
+			Tile[,] tee=new Tile[tileRows,tileCols];
+			
+			//Pixels=new Color[img6L.Height,img6L.Width];
+			
+			for(int x=0;x< img6L.Width;x++)
+			{
+				for(int y=0;y<img6L.Height;y++)
+				{
+					Rgba32 p=img6L[x,y];
+					Color c= Color.FromArgb(p.A,p.R,p.G,p.B);
+					//Pixels[y,x] =c;
+				}
+			}
+			
+		}
+		public void SaveToFile(string path)
+		{
+			Image<Rgba32>img6L=new Image<Rgba32>(Pixels.GetLength(1),Pixels.GetLength(0));
+			
+		for(int x=0;x< img6L.Width;x++)
+			{
+				for(int y=0;y<img6L.Height;y++)
+				{
+					//Color c= Pixels[y,x];
+					
+					Rgba32 p= new Rgba32(c.A,c.R,c.G,c.B);
+					img6L[x,y]=p;
+				}
+			}
+			img6L.Save(path);
+	}
+}
+
+    class Program
+    {
+        static void Main()
+        {
+			const string path="20051020_63711_0100_PP.png";
+            Retina retina= new Retina(path);
+            retina.SaveToFile("test.png");
+        }
+    }
+}

@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+<ItemGroup>     <Reference Include="SixLabors.Core"/>     <Reference Include="SixLabors.ImageSharp"/>     <Reference Include="System.Runtime.CompilerServices.Unsafe"/> </ItemGroup>
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+</Project>
